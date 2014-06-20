@@ -7,6 +7,7 @@ fs = require("fs")
 connect = require("connect")
 liveReload = require("connect-livereload")
 tiny_lr = require("tiny-lr")
+st = require("st")
 opt = {}
 server = undefined
 lr = undefined
@@ -54,9 +55,16 @@ class ConnectApp
       middleware.push liveReload(port: opt.livereload.port)
     if typeof opt.root == "object"
       opt.root.forEach (path) ->
-        middleware.push connect.static(path)
+        middleware.push st path: path
     else
-      middleware.push connect.static(opt.root)
+      middleware.push st path: path
+
+    # if typeof opt.root == "object"
+    #   opt.root.forEach (path) ->
+    #     middleware.push connect.static(path)
+    # else
+    #   middleware.push connect.static(opt.root)
+
     if opt.fallback
       middleware.push (req, res) ->
         require('fs').createReadStream(opt.fallback).pipe(res);

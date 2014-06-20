@@ -1,5 +1,5 @@
 .idea
 .DS_Store
 node_modules
-index.js
+/index.js
 *.css
