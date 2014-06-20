@@ -53,17 +53,12 @@ class ConnectApp
       opt.livereload = {}  if typeof opt.livereload is "boolean"
       opt.livereload.port = 35729  unless opt.livereload.port
       middleware.push liveReload(port: opt.livereload.port)
+
     if typeof opt.root == "object"
       opt.root.forEach (path) ->
-        middleware.push st path: path
+        middleware.push st path
     else
-      middleware.push st path: path
-
-    # if typeof opt.root == "object"
-    #   opt.root.forEach (path) ->
-    #     middleware.push connect.static(path)
-    # else
-    #   middleware.push connect.static(opt.root)
+      middleware.push st path: opt.root, index: '/index.html'
 
     if opt.fallback
       middleware.push (req, res) ->

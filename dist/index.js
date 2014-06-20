@@ -88,13 +88,12 @@
       }
       if (typeof opt.root === "object") {
         opt.root.forEach(function(path) {
-          return middleware.push(st({
-            path: path
-          }));
+          return middleware.push(st(path));
         });
       } else {
         middleware.push(st({
-          path: path
+          path: opt.root,
+          index: '/index.html'
         }));
       }
       if (opt.fallback) {
